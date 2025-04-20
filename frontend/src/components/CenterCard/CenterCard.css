@@ -1,0 +1,52 @@
+.center-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: var(--transition);
+  }
+  
+  .center-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .center-name {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+  }
+  
+  .center-address {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+  }
+  
+  .center-worktime, .center-phone {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: var(--dark-color);
+    opacity: 0.8;
+  }
+  
+  .label {
+    font-weight: 600;
+  }
+  
+  .center-actions {
+    margin-top: auto;
+  }
+  
+  .center-actions .btn {
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .center-card {
+      padding: 20px;
+    }
+  }

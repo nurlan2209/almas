@@ -1,0 +1,124 @@
+.user-menu-container {
+    position: relative;
+  }
+  
+  .user-menu-trigger {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .user-menu-trigger:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #e53935;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .user-name {
+    margin-right: 5px;
+    font-weight: 500;
+  }
+  
+  .arrow {
+    border: solid #666;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transition: transform 0.2s;
+  }
+  
+  .arrow.down {
+    transform: rotate(45deg);
+  }
+  
+  .arrow.up {
+    transform: rotate(-135deg);
+  }
+  
+  .user-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 280px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    overflow: hidden;
+  }
+  
+  .menu-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-avatar-large {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #e53935;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 12px;
+  }
+  
+  .user-details {
+    flex: 1;
+  }
+  
+  .user-full-name {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .user-email {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .menu-items li {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .menu-items li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .menu-items li .icon {
+    margin-right: 12px;
+    font-size: 18px;
+    color: #666;
+  }

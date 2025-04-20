@@ -1,0 +1,48 @@
+.cta-section {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+    background-image: linear-gradient(to right, var(--primary-color), #c92a2a);
+  }
+  
+  .cta-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .cta-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .cta-text {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+  
+  .cta-btn {
+    background-color: white;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    padding: 15px 30px;
+  }
+  
+  .cta-btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  @media (max-width: 768px) {
+    .cta-title {
+      font-size: 2rem;
+    }
+    
+    .cta-text {
+      font-size: 1rem;
+    }
+    
+    .cta-btn {
+      padding: 12px 24px;
+    }
+  }

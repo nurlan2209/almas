@@ -1,0 +1,238 @@
+.donate-hero {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+  }
+  
+  .donate-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .donate-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+  }
+  
+  .donate-steps {
+    padding: 80px 0;
+    background-color: #fff;
+  }
+  
+  .donate-steps h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+  }
+  
+  .steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .step-card {
+    display: flex;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+  
+  .step-number {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .step-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .step-content h3 {
+    margin-bottom: 10px;
+    color: var(--dark-color);
+  }
+  
+  .donate-requirements {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+  }
+  
+  .donate-requirements h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+  }
+  
+  .requirements-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .requirement-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .requirement-check {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.8rem;
+  }
+  
+  .donate-contraindications {
+    padding: 80px 0;
+    background-color: #fff;
+  }
+  
+  .donate-contraindications h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+  }
+  
+  .accordion-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .accordion-item {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .accordion-header:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .accordion-header.active {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .accordion-icon {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .accordion-content.open {
+    max-height: 500px;
+  }
+  
+  .accordion-content ul {
+    padding: 20px;
+    list-style-type: disc;
+    padding-left: 40px;
+  }
+  
+  .accordion-content ul li {
+    margin-bottom: 10px;
+  }
+  
+  .donate-after {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+  }
+  
+  .donate-after h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+  }
+  
+  .after-donate-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .after-donate-text {
+    flex: 1;
+  }
+  
+  .after-donate-text p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+  
+  .after-donate-text ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .after-donate-text ul li {
+    margin-bottom: 10px;
+  }
+  
+  .after-donate-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .after-donate-image .image-placeholder {
+    width: 400px;
+    height: 300px;
+    background-color: #f1f3f5;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 992px) {
+    .requirements-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .after-donate-content {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .donate-title {
+      font-size: 2.5rem;
+    }
+  }
