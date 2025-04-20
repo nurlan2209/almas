@@ -43,9 +43,9 @@ const UserMenu = ({ user, onLogout }) => {
     <div className="user-menu-container" ref={menuRef}>
       <div className="user-menu-trigger" onClick={toggleMenu}>
         <div className="user-avatar">
-          {user.firstName ? user.firstName.charAt(0) : 'Д'}
+          {user.first_name ? user.first_name.charAt(0) : 'Д'}
         </div>
-        <span className="user-name">{user.firstName || 'Донор'}</span>
+        <span className="user-name">{user.first_name || 'Донор'}</span>
         <i className={`arrow ${isMenuOpen ? 'up' : 'down'}`}></i>
       </div>
       
@@ -54,11 +54,11 @@ const UserMenu = ({ user, onLogout }) => {
           <div className="menu-header">
             <div className="user-info">
               <div className="user-avatar-large">
-                {user.firstName ? user.firstName.charAt(0) : 'Д'}
+                {user.first_name ? user.first_name.charAt(0) : 'Д'}
               </div>
               <div className="user-details">
                 <div className="user-full-name">
-                  {`${user.lastName || ''} ${user.firstName || 'Донор'} ${user.patronymic || ''}`}
+                  {`${user.last_name || ''} ${user.first_name || ''} ${user.patronymic || ''}`}
                 </div>
                 <div className="user-email">{user.email || 'email@example.com'}</div>
               </div>
@@ -69,22 +69,6 @@ const UserMenu = ({ user, onLogout }) => {
             <li onClick={openProfile}>
               <i className="icon profile-icon"></i>
               Мой профиль
-            </li>
-            <li>
-              <i className="icon history-icon"></i>
-              История донаций
-            </li>
-            <li>
-              <i className="icon appointments-icon"></i>
-              Мои записи
-            </li>
-            <li>
-              <i className="icon certificates-icon"></i>
-              Справки и документы
-            </li>
-            <li>
-              <i className="icon notifications-icon"></i>
-              Уведомления
             </li>
             <li onClick={handleLogout}>
               <i className="icon logout-icon"></i>

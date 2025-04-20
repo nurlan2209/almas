@@ -37,7 +37,7 @@ const UserProfile = ({ user, onClose }) => {
     }}>
       <div className="profile-modal">
         <div className="profile-header">
-          <h2>Профиль донора</h2>
+          <h2>{user?.role === 'donor' ? 'Профиль донора' : 'Профиль реципиента'}</h2>
           <div className="header-buttons">
             <button 
               className="close-button" 
@@ -62,12 +62,6 @@ const UserProfile = ({ user, onClose }) => {
           >
             Медицинские данные
           </button>
-          <button 
-            className={`profile-tab ${activeTab === 'donations' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('donations')}
-          >
-            История донаций
-          </button>
         </div>
 
         <div className="profile-content">
@@ -80,7 +74,7 @@ const UserProfile = ({ user, onClose }) => {
                     <div className="data-row">
                       <div className="data-label">ФИО:</div>
                       <div className="data-value">
-                        {`${formData.lastName || ''} ${formData.firstName || ''} ${formData.patronymic || ''}`}
+                        {`${formData.last_name || ''} ${formData.first_name || ''} ${formData.patronymic || ''}`}
                       </div>
                     </div>
                     <div className="data-row">
@@ -89,7 +83,7 @@ const UserProfile = ({ user, onClose }) => {
                     </div>
                     <div className="data-row">
                       <div className="data-label">Дата рождения:</div>
-                      <div className="data-value">{formData.birthDate || 'Не указана'}</div>
+                      <div className="data-value">{formData.birth_date || 'Не указана'}</div>
                     </div>
                     <div className="data-row">
                       <div className="data-label">Пол:</div>
@@ -108,7 +102,7 @@ const UserProfile = ({ user, onClose }) => {
                     </div>
                     <div className="data-row">
                       <div className="data-label">Телефон:</div>
-                      <div className="data-value">{formData.phoneNumber || 'Не указан'}</div>
+                      <div className="data-value">{formData.phone_number || 'Не указан'}</div>
                     </div>
                     <div className="data-row">
                       <div className="data-label">Адрес:</div>
@@ -125,23 +119,23 @@ const UserProfile = ({ user, onClose }) => {
                   <div className="profile-section">
                     <h3>Основная информация</h3>
                     <div className="form-group">
-                      <label htmlFor="lastName">Фамилия</label>
+                      <label htmlFor="last_name">Фамилия</label>
                       <input
                         type="text"
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName || ''}
+                        id="last_name"
+                        name="last_name"
+                        value={formData.last_name || ''}
                         onChange={handleChange}
                       />
                     </div>
                     
                     <div className="form-group">
-                      <label htmlFor="firstName">Имя</label>
+                      <label htmlFor="first_name">Имя</label>
                       <input
                         type="text"
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName || ''}
+                        id="first_name"
+                        name="first_name"
+                        value={formData.first_name || ''}
                         onChange={handleChange}
                       />
                     </div>
@@ -161,12 +155,12 @@ const UserProfile = ({ user, onClose }) => {
                   <div className="profile-section">
                     <h3>Контактная информация</h3>
                     <div className="form-group">
-                      <label htmlFor="phoneNumber">Телефон</label>
+                      <label htmlFor="phone_number">Телефон</label>
                       <input
                         type="tel"
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        value={formData.phoneNumber || ''}
+                        id="phone_number"
+                        name="phone_number"
+                        value={formData.phone_number || ''}
                         onChange={handleChange}
                       />
                     </div>
@@ -202,8 +196,8 @@ const UserProfile = ({ user, onClose }) => {
                 <div className="data-row">
                   <div className="data-label">Группа крови:</div>
                   <div className="data-value">
-                    {formData.bloodType ? 
-                      `${formData.bloodType} ${formData.rhFactor === 'positive' ? '(+)' : '(-)'}` : 
+                    {formData.blood_type ? 
+                      `${formData.blood_type} ${formData.rh_factor === 'positive' ? '(+)' : '(-)'}` : 
                       'Не указана'}
                   </div>
                 </div>
@@ -222,14 +216,14 @@ const UserProfile = ({ user, onClose }) => {
                 <div className="data-row">
                   <div className="data-label">Хронические заболевания:</div>
                   <div className="data-value">
-                    {formData.hasChronicDiseases ? 'Имеются' : 'Отсутствуют'}
+                    {formData.has_chronic_diseases ? 'Имеются' : 'Отсутствуют'}
                   </div>
                 </div>
-                {formData.hasChronicDiseases && (
+                {formData.has_chronic_diseases && (
                   <div className="data-row">
                     <div className="data-label">Описание хронических заболеваний:</div>
                     <div className="data-value">
-                      {formData.chronicDiseasesDetails || 'Не указано'}
+                      {formData.chronic_diseases_details || 'Не указано'}
                     </div>
                   </div>
                 )}
@@ -244,36 +238,60 @@ const UserProfile = ({ user, onClose }) => {
           {activeTab === 'donations' && (
             <div className="profile-data">
               <div className="profile-section">
-                <h3>История донаций</h3>
-                {formData.donations && formData.donations.length > 0 ? (
-                  <table className="donations-table">
-                    <thead>
-                      <tr>
-                        <th>Дата</th>
-                        <th>Тип донации</th>
-                        <th>Центр донорства</th>
-                        <th>Статус</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {formData.donations.map((donation, index) => (
-                        <tr key={index}>
-                          <td>{donation.date}</td>
-                          <td>{donation.type}</td>
-                          <td>{donation.center}</td>
-                          <td>{donation.status}</td>
+                <h3>{user?.role === 'donor' ? 'История донаций' : 'История запросов на донацию'}</h3>
+                {user?.role === 'donor' ? (
+                  formData.donations && formData.donations.length > 0 ? (
+                    <table className="donations-table">
+                      <thead>
+                        <tr>
+                          <th>Дата</th>
+                          <th>Тип донации</th>
+                          <th>Центр донорства</th>
+                          <th>Статус</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {formData.donations && formData.donations.map((donation, index) => (
+                          <tr key={index}>
+                            <td>{donation.date}</td>
+                            <td>{donation.type}</td>
+                            <td>{donation.center}</td>
+                            <td>{donation.status}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <p className="no-data">У вас пока нет зарегистрированных донаций.</p>
+                  )
                 ) : (
-                  <p className="no-data">У вас пока нет зарегистрированных донаций.</p>
+                  formData.requests && formData.requests.length > 0 ? (
+                    <table className="donations-table">
+                      <thead>
+                        <tr>
+                          <th>Дата</th>
+                          <th>Группа крови</th>
+                          <th>Срочность</th>
+                          <th>Статус</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {formData.requests && formData.requests.map((request, index) => (
+                          <tr key={index}>
+                            <td>{request.date}</td>
+                            <td>{request.blood_type}</td>
+                            <td>{request.urgency}</td>
+                            <td>{request.status}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <p className="no-data">У вас пока нет зарегистрированных запросов.</p>
+                  )
                 )}
               </div>
 
-              <button className="btn btn-primary">
-                Записаться на донацию
-              </button>
             </div>
           )}
         </div>

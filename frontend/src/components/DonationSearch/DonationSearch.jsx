@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../services/authService';
 import { usersAPI, donationRequestsAPI } from '../../services/apiService';
+import ContactModal from './ContactModal';
 import './DonationSearch.css';
 
 // Компонент для поиска доноров или реципиентов в зависимости от роли пользователя
-const DonationSearch = () => {
+const DonationSearch = ({ onRespondToRequest }) => {
   const { user } = useAuth();
   const [searchResults, setSearchResults] = useState([]);
   const [requests, setRequests] = useState([]);
@@ -13,6 +14,8 @@ const DonationSearch = () => {
     blood_type: '',
     rh_factor: '',
   });
+  const [selectedPerson, setSelectedPerson] = useState(null);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   // Определяем, кого ищем в зависимости от роли пользователя
   const isSearchingDonors = user?.role === 'recipient';
@@ -66,19 +69,14 @@ const DonationSearch = () => {
     }));
   };
 
-  const handleCreateRequest = () => {
-    // Здесь будет открытие формы создания запроса на донацию
-    console.log('Create donation request');
-  };
-
   const handleContactPerson = (person) => {
-    // Здесь будет открытие окна для связи с донором/реципиентом
-    console.log('Contact person:', person);
+    setSelectedPerson(person);
+    setShowContactModal(true);
   };
 
-  const handleRespondToRequest = (request) => {
-    // Здесь будет открытие формы для отклика на запрос донации
-    console.log('Respond to request:', request);
+  const closeContactModal = () => {
+    setShowContactModal(false);
+    setSelectedPerson(null);
   };
 
   // Если пользователь не авторизован или данные еще загружаются
@@ -131,14 +129,6 @@ const DonationSearch = () => {
         </div>
       </div>
       
-      {isSearchingDonors && (
-        <div className="action-buttons">
-          <button className="btn btn-primary" onClick={handleCreateRequest}>
-            Создать запрос на донацию
-          </button>
-        </div>
-      )}
-      
       {/* Активные запросы */}
       {requests.length > 0 && (
         <div className="active-requests">
@@ -180,7 +170,7 @@ const DonationSearch = () => {
                   <div className="request-actions">
                     <button
                       className="btn btn-primary"
-                      onClick={() => handleRespondToRequest(request)}
+                      onClick={() => onRespondToRequest(request.id)}
                     >
                       Откликнуться
                     </button>
@@ -240,6 +230,14 @@ const DonationSearch = () => {
           </div>
         )}
       </div>
+      
+      {/* Модальное окно с контактами */}
+      {showContactModal && (
+        <ContactModal
+          person={selectedPerson}
+          onClose={closeContactModal}
+        />
+      )}
     </div>
   );
 };

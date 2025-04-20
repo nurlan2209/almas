@@ -1,0 +1,153 @@
+/* src/components/DonationSearch/ContactModal.css */
+
+.contact-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .contact-modal {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .contact-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .contact-modal-header h3 {
+    margin: 0;
+    color: var(--dark-color);
+  }
+  
+  .close-button {
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #666;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .close-button:hover {
+    background-color: #f0f0f0;
+    color: var(--primary-color);
+  }
+  
+  .contact-modal-content {
+    padding: 20px;
+  }
+  
+  .contact-person-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .contact-person-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  .contact-person-details {
+    flex: 1;
+  }
+  
+  .contact-person-name {
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    color: var(--dark-color);
+  }
+  
+  .contact-blood-info,
+  .contact-gender-info {
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    color: #666;
+  }
+  
+  .contact-detail-label {
+    font-weight: 500;
+    margin-right: 5px;
+  }
+  
+  .contact-data {
+    margin-bottom: 20px;
+  }
+  
+  .contact-section h4 {
+    margin-bottom: 15px;
+    color: var(--dark-color);
+  }
+  
+  .contact-data-row {
+    display: flex;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  
+  .contact-label {
+    width: 35%;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .contact-value {
+    width: 65%;
+    color: var(--dark-color);
+  }
+  
+  .contact-actions {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .contact-note {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #666;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: left;
+  }
+  
+  .contact-actions .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }

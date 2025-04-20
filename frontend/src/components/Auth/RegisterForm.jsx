@@ -67,8 +67,8 @@ const RegisterForm = ({ onClose, onError }) => {
       if (!formData.rhFactor) newErrors.rhFactor = 'Выберите резус-фактор';
     } else if (stepNumber === 4) {
       if (!formData.phoneNumber) newErrors.phoneNumber = 'Введите номер телефона';
-      else if (!/^\+7\d{10}$/.test(formData.phoneNumber)) 
-        newErrors.phoneNumber = 'Номер телефона должен быть в формате +7XXXXXXXXXX';
+      else if (!/^\+7 \d{3} \d{3} \d{4}$/.test(formData.phoneNumber)) 
+        newErrors.phoneNumber = 'Номер телефона должен быть в формате +7 777 777 7777';          
       if (!formData.address) newErrors.address = 'Введите адрес';
       if (!formData.agreeTerms) newErrors.agreeTerms = 'Необходимо согласие на обработку персональных данных';
     }
