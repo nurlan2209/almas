@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react';
+import { authAPI } from './apiService';
 
 // Контекст авторизации для использования в компонентах
 export const AuthContext = createContext();
@@ -6,43 +7,44 @@ export const AuthContext = createContext();
 // Пользовательский хук для работы с авторизацией
 export const useAuth = () => useContext(AuthContext);
 
-// Начальное состояние (заглушка для имитации бэкенда)
-const initialState = {
-  isAuthenticated: true,
-  user: {
-    firstName: 'Тест',
-    lastName: 'Юзер',
-    email: 'test@test.com'
-  },
-  loading: true,
-};
-
 // Провайдер авторизации
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(initialState);
+  const [auth, setAuth] = useState({
+    isAuthenticated: false,
+    user: null,
+    loading: true,
+  });
 
   // Проверка сохраненного состояния авторизации при загрузке
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-          const user = JSON.parse(storedUser);
+        // Проверяем наличие токена в localStorage
+        const token = localStorage.getItem('token');
+        
+        if (token) {
+          // Если токен есть, получаем данные пользователя с сервера
+          const response = await authAPI.getCurrentUser();
           setAuth({
             isAuthenticated: true,
-            user,
+            user: response.user,
             loading: false,
           });
         } else {
+          // Если токена нет, пользователь не авторизован
           setAuth({
-            ...initialState,
+            isAuthenticated: false,
+            user: null,
             loading: false,
           });
         }
       } catch (error) {
         console.error('Auth check failed:', error);
+        // В случае ошибки (например, недействительный токен) сбрасываем авторизацию
+        localStorage.removeItem('token');
         setAuth({
-          ...initialState,
+          isAuthenticated: false,
+          user: null,
           loading: false,
         });
       }
@@ -54,23 +56,20 @@ export const AuthProvider = ({ children }) => {
   // Регистрация пользователя
   const register = async (userData) => {
     try {
-      // Здесь должен быть запрос к API для регистрации
-      // Заглушка для демонстрации:
-      const user = { 
-        ...userData,
-        id: Math.random().toString(36).substring(2, 11), // Генерация случайного ID
-        donations: [] // Пустая история донаций
-      };
+      // Отправляем запрос на регистрацию
+      const response = await authAPI.register(userData);
       
-      localStorage.setItem('user', JSON.stringify(user));
+      // Сохраняем токен в localStorage
+      localStorage.setItem('token', response.token);
       
+      // Обновляем состояние авторизации
       setAuth({
         isAuthenticated: true,
-        user,
+        user: response.user,
         loading: false,
       });
       
-      return { success: true, user };
+      return { success: true, user: response.user };
     } catch (error) {
       console.error('Registration failed:', error);
       return { success: false, error: error.message || 'Ошибка регистрации' };
@@ -80,55 +79,20 @@ export const AuthProvider = ({ children }) => {
   // Авторизация пользователя
   const login = async (email, password) => {
     try {
-      // Здесь должен быть запрос к API для авторизации
-      // Заглушка для демонстрации:
+      // Отправляем запрос на авторизацию
+      const response = await authAPI.login(email, password);
       
-      // В реальном приложении проверка будет происходить на сервере
-      const storedUser = localStorage.getItem('user');
-      let user = null;
+      // Сохраняем токен в localStorage
+      localStorage.setItem('token', response.token);
       
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        if (parsedUser.email === email) {
-          // В реальности пароль должен проверяться на сервере!
-          user = parsedUser;
-        }
-      }
-      
-      if (!user) {
-        // Для демонстрации: если пользователь не найден, создаем тестового
-        user = {
-          id: Math.random().toString(36).substring(2, 11),
-          email,
-          firstName: 'Тестовый',
-          lastName: 'Пользователь',
-          iin: '123456789012',
-          birthDate: '1990-01-01',
-          gender: 'male',
-          bloodType: 'II',
-          rhFactor: 'positive',
-          height: '175',
-          weight: '75',
-          donations: [
-            {
-              date: '2024-03-15',
-              type: 'Цельная кровь',
-              center: 'Центральный центр крови',
-              status: 'Выполнено'
-            }
-          ]
-        };
-        
-        localStorage.setItem('user', JSON.stringify(user));
-      }
-      
+      // Обновляем состояние авторизации
       setAuth({
         isAuthenticated: true,
-        user,
+        user: response.user,
         loading: false,
       });
       
-      return { success: true, user };
+      return { success: true, user: response.user };
     } catch (error) {
       console.error('Login failed:', error);
       return { success: false, error: error.message || 'Ошибка входа' };
@@ -137,7 +101,10 @@ export const AuthProvider = ({ children }) => {
 
   // Выход пользователя
   const logout = () => {
-    localStorage.removeItem('user');
+    // Удаляем токен из localStorage
+    localStorage.removeItem('token');
+    
+    // Обновляем состояние авторизации
     setAuth({
       isAuthenticated: false,
       user: null,
@@ -146,17 +113,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Обновление данных пользователя
-  const updateUserData = (updatedData) => {
+  const updateUserData = async (updatedData) => {
     try {
-      const updatedUser = { ...auth.user, ...updatedData };
-      localStorage.setItem('user', JSON.stringify(updatedUser));
+      // Получаем обновленные данные с сервера
+      const response = await authAPI.updateProfile(updatedData);
       
+      // Обновляем состояние пользователя
       setAuth({
         ...auth,
-        user: updatedUser
+        user: response.user
       });
       
-      return { success: true, user: updatedUser };
+      return { success: true, user: response.user };
     } catch (error) {
       console.error('Update user data failed:', error);
       return { success: false, error: error.message || 'Ошибка обновления данных' };

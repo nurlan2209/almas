@@ -62,6 +62,13 @@ const Header = () => {
                 Центры сдачи
               </NavLink>
             </li>
+            {isAuthenticated && (
+              <li className="nav-item">
+                <NavLink to="/search" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
+                  {user?.role === 'donor' ? 'Нуждающиеся' : 'Поиск доноров'}
+                </NavLink>
+              </li>
+            )}
             <li className="nav-item">
               <NavLink to="/contact" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
                 Контакты

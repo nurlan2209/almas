@@ -1,15 +1,16 @@
-
 import React, { useState } from 'react';
 import './LoginForm.css';
+import { useAuth } from '../../services/authService';
 
-const LoginForm = ({ onClose }) => {
+const LoginForm = ({ onClose, onError }) => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     rememberMe: false
   });
-
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -17,6 +18,11 @@ const LoginForm = ({ onClose }) => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
+    
+    // Очищаем ошибку поля при изменении значения
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: null }));
+    }
   };
 
   const validate = () => {
@@ -27,13 +33,28 @@ const LoginForm = ({ onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      // Здесь будет логика авторизации
-      console.log('Login submitted:', formData);
-      // После успешной авторизации:
-      onClose();
+    
+    if (!validate()) return;
+    
+    try {
+      setIsSubmitting(true);
+      
+      // Вызываем метод авторизации из контекста
+      const result = await login(formData.email, formData.password);
+      
+      if (result.success) {
+        // При успешной авторизации закрываем модальное окно
+        onClose();
+      } else {
+        // При ошибке показываем сообщение
+        onError(result.error);
+      }
+    } catch (error) {
+      onError(error.message || 'Ошибка при входе в систему');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,6 +69,7 @@ const LoginForm = ({ onClose }) => {
           value={formData.email}
           onChange={handleChange}
           className={errors.email ? 'error' : ''}
+          disabled={isSubmitting}
         />
         {errors.email && <div className="error-message">{errors.email}</div>}
       </div>
@@ -61,6 +83,7 @@ const LoginForm = ({ onClose }) => {
           value={formData.password}
           onChange={handleChange}
           className={errors.password ? 'error' : ''}
+          disabled={isSubmitting}
         />
         {errors.password && <div className="error-message">{errors.password}</div>}
       </div>
@@ -72,6 +95,7 @@ const LoginForm = ({ onClose }) => {
             name="rememberMe"
             checked={formData.rememberMe}
             onChange={handleChange}
+            disabled={isSubmitting}
           />
           Запомнить меня
         </label>
@@ -81,8 +105,8 @@ const LoginForm = ({ onClose }) => {
         <a href="#">Забыли пароль?</a>
       </div>
       
-      <button type="submit" className="btn btn-primary btn-block">
-        Войти
+      <button type="submit" className="btn btn-primary btn-block" disabled={isSubmitting}>
+        {isSubmitting ? 'Вход...' : 'Войти'}
       </button>
     </form>
   );

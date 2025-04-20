@@ -10,8 +10,11 @@ import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
 import HowToDonate from './pages/HowToDonate/HowToDonate';
 import DonationCenters from './pages/DonationCenters/DonationCenters';
+import Search from './pages/Search/Search';
 import { AuthProvider } from './services/authService';
 
+// Компонент для защиты маршрутов, требующих авторизации
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
@@ -27,6 +30,16 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/how-to-donate" element={<HowToDonate />} />
               <Route path="/donation-centers" element={<DonationCenters />} />
+              
+              {/* Защищенный маршрут для поиска доноров/реципиентов */}
+              <Route 
+                path="/search" 
+                element={
+                  <ProtectedRoute>
+                    <Search />
+                  </ProtectedRoute>
+                } 
+              />
             </Routes>
           </main>
           <Footer />

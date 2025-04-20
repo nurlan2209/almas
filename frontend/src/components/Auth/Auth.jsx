@@ -5,8 +5,25 @@ import RegisterForm from './RegisterForm';
 
 const Auth = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState('login');
+  const [error, setError] = useState(null);
 
   if (!isOpen) return null;
+
+  // Обработчик переключения между вкладками
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setError(null); // Сбрасываем ошибки при переключении вкладок
+  };
+
+  // Обработчик успешной авторизации или регистрации
+  const handleSuccess = () => {
+    onClose();
+  };
+
+  // Обработчик ошибки
+  const handleError = (errorMessage) => {
+    setError(errorMessage);
+  };
 
   return (
     <div className="auth-modal-overlay">
@@ -16,22 +33,34 @@ const Auth = ({ isOpen, onClose }) => {
         <div className="auth-tabs">
           <button 
             className={`auth-tab ${activeTab === 'login' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('login')}
+            onClick={() => handleTabChange('login')}
           >
             Вход
           </button>
           <button 
             className={`auth-tab ${activeTab === 'register' ? 'active' : ''}`} 
-            onClick={() => setActiveTab('register')}
+            onClick={() => handleTabChange('register')}
           >
             Регистрация
           </button>
         </div>
         
+        {error && (
+          <div className="auth-error">
+            {error}
+          </div>
+        )}
+        
         {activeTab === 'login' ? (
-          <LoginForm onClose={onClose} />
+          <LoginForm 
+            onClose={handleSuccess} 
+            onError={handleError}
+          />
         ) : (
-          <RegisterForm onClose={onClose} />
+          <RegisterForm 
+            onClose={handleSuccess} 
+            onError={handleError}
+          />
         )}
       </div>
     </div>
