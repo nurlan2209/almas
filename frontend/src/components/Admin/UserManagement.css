@@ -1,0 +1,297 @@
+/* UserManagement.css */
+
+/* Общие стили для управления пользователями */
+.user-management {
+    width: 100%;
+  }
+  
+  /* Стили для фильтров */
+  .admin-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .filter-group label {
+    font-weight: 500;
+    color: #495057;
+  }
+  
+  .filter-group select {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  
+  .search-form {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+  }
+  
+  .search-form input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  
+  /* Стили для таблицы пользователей */
+  .users-list {
+    overflow-x: auto;
+  }
+  
+  .user-role {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .user-role.donor {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+  }
+  
+  .user-role.recipient {
+    background-color: #ffebee;
+    color: #b71c1c;
+  }
+  
+  .user-role.admin {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+  }
+  
+  .actions-cell {
+    white-space: nowrap;
+  }
+  
+  .action-button {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .action-button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .view-button {
+    color: #2196f3;
+  }
+  
+  .edit-button {
+    color: #4caf50;
+  }
+  
+  .delete-button {
+    color: #f44336;
+  }
+  
+  /* Стили для формы пользователя */
+  .user-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+  
+  .form-row .admin-form-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .form-section-title {
+    margin: 25px 0 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .field-error {
+    color: #f44336;
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+  
+  .form-error {
+    background-color: #ffebee;
+    color: #b71c1c;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  
+  /* Стили для детальной информации о пользователе */
+  .user-details {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .admin-header-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .user-profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #e53935;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-right: 20px;
+  }
+  
+  .user-meta {
+    flex: 1;
+  }
+  
+  .user-name {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+    color: #2c3e50;
+  }
+  
+  .user-role-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f5f5f5;
+    color: #2c3e50;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .user-id {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .user-details-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .user-details-section {
+    margin-bottom: 20px;
+  }
+  
+  .section-title {
+    margin: 0 0 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.2rem;
+    color: #2c3e50;
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .details-item {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+  }
+  
+  .details-item.full-width {
+    grid-column: 1 / -1;
+  }
+  
+  .details-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .details-value {
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .empty-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    text-align: center;
+    color: #666;
+  }
+  
+  .no-data {
+    padding: 30px;
+    text-align: center;
+    color: #666;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+  }
+  
+  /* Адаптивный дизайн */
+  @media (max-width: 768px) {
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .admin-filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .filter-group {
+      width: 100%;
+    }
+    
+    .search-form {
+      width: 100%;
+    }
+  }

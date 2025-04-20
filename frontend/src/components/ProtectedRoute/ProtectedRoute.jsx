@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../services/authService';
 
 // Компонент для защиты маршрутов, требующих авторизации
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
+const ProtectedRoute = ({ children, adminRequired = false }) => {
+  const { isAuthenticated, loading, user } = useAuth();
 
   // Пока проверяем авторизацию, показываем индикатор загрузки
   if (loading) {
@@ -21,7 +21,12 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/" replace />;
   }
 
-  // Если пользователь авторизован, показываем защищенный контент
+  // Если требуются права администратора, но пользователь не админ
+  if (adminRequired && user?.role !== 'admin') {
+    return <Navigate to="/" replace />;
+  }
+
+  // Если пользователь авторизован и имеет необходимые права, показываем защищенный контент
   return children;
 };
 

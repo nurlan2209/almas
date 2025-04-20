@@ -84,7 +84,7 @@ def create_test_data(conn):
             print("Тестовые данные уже существуют.")
             return
         
-        # Создаем тестовых пользователей (донора и реципиента)
+        # Создаем тестовых пользователей (донора, реципиента и администратора)
         
         # Донор
         donor_password_hash = pbkdf2_sha256.hash("donor123")
@@ -115,6 +115,19 @@ def create_test_data(conn):
                 'I', 'negative', 165, 60, FALSE
             )
         """, (recipient_password_hash,))
+        
+        # Администратор
+        admin_password_hash = pbkdf2_sha256.hash("admin123")
+        cursor.execute("""
+            INSERT INTO users (
+                email, password_hash, first_name, last_name, patronymic,
+                iin, birth_date, gender, role, phone_number, address
+            ) VALUES (
+                'admin@example.com', %s, 'Админ', 'Админов', 'Админович',
+                '111222333444', '1985-10-10', 'male', 'admin', '+7 (777) 888-99-00',
+                'г. Москва, ул. Администраторская, д. 1'
+            )
+        """, (admin_password_hash,))
         
         # Создаем тестовый запрос на донацию
         cursor.execute("""

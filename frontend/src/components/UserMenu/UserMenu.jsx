@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Добавляем useNavigate
 import './UserMenu.css';
 import UserProfile from './UserProfile';
 
@@ -6,6 +7,7 @@ const UserMenu = ({ user, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const menuRef = useRef(null);
+  const navigate = useNavigate(); // Инициализируем navigate
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,6 +24,12 @@ const UserMenu = ({ user, onLogout }) => {
 
   const handleLogout = () => {
     onLogout();
+    setIsMenuOpen(false);
+  };
+
+  // Обработчик для перехода на админскую панель
+  const goToAdminPanel = () => {
+    navigate('/admin/users');
     setIsMenuOpen(false);
   };
 
@@ -70,6 +78,13 @@ const UserMenu = ({ user, onLogout }) => {
               <i className="icon profile-icon"></i>
               Мой профиль
             </li>
+            {/* Условно добавляем пункт "Админ панель" только для админов */}
+            {user.role === 'admin' && (
+              <li onClick={goToAdminPanel}>
+                <i className="icon admin-icon"></i>
+                Админ панель
+              </li>
+            )}
             <li onClick={handleLogout}>
               <i className="icon logout-icon"></i>
               Выйти

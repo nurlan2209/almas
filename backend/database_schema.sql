@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     iin VARCHAR(20) UNIQUE,  -- Идентификационный номер
     birth_date DATE,
     gender VARCHAR(10) CHECK (gender IN ('male', 'female')),
-    role VARCHAR(20) NOT NULL CHECK (role IN ('donor', 'recipient')),
+    role VARCHAR(20) NOT NULL CHECK (role IN ('donor', 'recipient', 'admin')),
     phone_number VARCHAR(20),
     address TEXT,
     blood_type VARCHAR(5),

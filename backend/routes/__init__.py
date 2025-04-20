@@ -6,6 +6,7 @@ users_bp = Blueprint('users', __name__, url_prefix='/api/users')
 donations_bp = Blueprint('donations', __name__, url_prefix='/api/donations')
 donation_centers_bp = Blueprint('donation_centers', __name__, url_prefix='/api/donation-centers')
 donation_requests_bp = Blueprint('donation_requests', __name__, url_prefix='/api/donation-requests')
+admin_bp = Blueprint('admin', __name__, url_prefix='/api/admin')
 
 # Импорт маршрутов
 from .auth import *
@@ -13,6 +14,7 @@ from .users import *
 from .donations import *
 from .donation_centers import *
 from .donation_requests import *
+from .admin import *
 
 def init_routes(app):
     """Регистрация всех Blueprint в приложении"""
@@ -21,3 +23,4 @@ def init_routes(app):
     app.register_blueprint(donations_bp)
     app.register_blueprint(donation_centers_bp)
     app.register_blueprint(donation_requests_bp)
+    app.register_blueprint(admin_bp)

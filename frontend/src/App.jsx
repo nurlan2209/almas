@@ -16,15 +16,24 @@ import { AuthProvider } from './services/authService';
 // Компонент для защиты маршрутов, требующих авторизации
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
+// Импорт компонентов административной панели
+import AdminLogin from './components/Admin/AdminLogin';
+import AdminPanel from './components/Admin/AdminPanel';
+
 function App() {
   return (
     <AuthProvider>
       <Router>
         <div className="app">
-          <Header />
+          {/* Исключаем Header для маршрутов администратора */}
+          <Routes>
+            <Route path="/admin/*" element={null} />
+            <Route path="*" element={<Header />} />
+          </Routes>
     
           <main className="main-content">
             <Routes>
+              {/* Маршруты основного сайта */}
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
@@ -40,9 +49,25 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+              
+              {/* Маршруты административной панели */}
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route 
+                path="/admin/*" 
+                element={
+                  <ProtectedRoute adminRequired={true}>
+                    <AdminPanel />
+                  </ProtectedRoute>
+                } 
+              />
             </Routes>
           </main>
-          <Footer />
+          
+          {/* Исключаем Footer для маршрутов администратора */}
+          <Routes>
+            <Route path="/admin/*" element={null} />
+            <Route path="*" element={<Footer />} />
+          </Routes>
         </div>
       </Router>
     </AuthProvider>

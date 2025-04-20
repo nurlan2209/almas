@@ -48,3 +48,20 @@ def recipient_required(fn):
         return fn(*args, **kwargs)
     
     return wrapper
+
+def admin_required(fn):
+    """Декоратор для проверки, что пользователь является администратором"""
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        from models.user import User
+        
+        verify_jwt_in_request()
+        user_id = get_jwt_identity()
+        user = User.find_by_id(user_id)
+        
+        if not user or user.role != 'admin':
+            return jsonify({"message": "Требуются права администратора"}), 403
+        
+        return fn(*args, **kwargs)
+    
+    return wrapper
