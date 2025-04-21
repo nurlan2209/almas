@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 const UserForm = ({ isEditing = false, onSuccess }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -24,47 +24,42 @@ const UserForm = ({ isEditing = false, onSuccess }) => {
     has_chronic_diseases: false,
     chronic_diseases_details: ''
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [formErrors, setFormErrors] = useState({});
-  
-  // Если это форма редактирования, загружаем данные пользователя
+
   useEffect(() => {
     if (isEditing && id) {
       fetchUserData(id);
     }
   }, [isEditing, id]);
-  
-  // Функция для загрузки данных пользователя
+
   const fetchUserData = async (userId) => {
     try {
       setLoading(true);
-      
-      // Получение токена из localStorage
+
       const token = localStorage.getItem('token');
-      
+
       if (!token) {
-        throw new Error('Требуется авторизация');
+        throw new Error('Авторизация қажет');
       }
-      
-      // Запрос к API для получения данных пользователя
+
       const response = await fetch(`http://localhost:5000/api/admin/users/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (!response.ok) {
-        throw new Error(`Ошибка запроса: ${response.status}`);
+        throw new Error(`Сұраныс қатесі: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
-      // Обновляем состояние формы
+
       setFormData({
         email: data.user.email || '',
-        password: '', // Пароль не передается в ответе API
+        password: '',
         first_name: data.user.first_name || '',
         last_name: data.user.last_name || '',
         patronymic: data.user.patronymic || '',
@@ -81,97 +76,88 @@ const UserForm = ({ isEditing = false, onSuccess }) => {
         has_chronic_diseases: data.user.has_chronic_diseases || false,
         chronic_diseases_details: data.user.chronic_diseases_details || ''
       });
-      
+
       setError(null);
     } catch (err) {
-      console.error('Failed to fetch user data:', err);
-      setError(err.message || 'Не удалось загрузить данные пользователя');
+      console.error('Пайдаланушы деректерін жүктеу қатесі:', err);
+      setError(err.message || 'Пайдаланушы деректерін жүктеу мүмкін болмады');
     } finally {
       setLoading(false);
     }
   };
-  
-  // Обработчик изменения полей формы
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    
-    // Очищаем ошибку для этого поля
+
     if (formErrors[name]) {
       setFormErrors(prev => ({ ...prev, [name]: null }));
     }
   };
-  
-  // Валидация формы
+
   const validateForm = () => {
     const errors = {};
-    
+
     if (!formData.email) {
-      errors.email = 'Email обязателен';
+      errors.email = 'Email міндетті';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Некорректный формат email';
+      errors.email = 'Email пішімі дұрыс емес';
     }
-    
+
     if (!isEditing && !formData.password) {
-      errors.password = 'Пароль обязателен';
+      errors.password = 'Құпиясөз міндетті';
     } else if (!isEditing && formData.password.length < 6) {
-      errors.password = 'Пароль должен содержать минимум 6 символов';
+      errors.password = 'Құпиясөз кемінде 6 таңбадан тұруы керек';
     }
-    
+
     if (!formData.first_name) {
-      errors.first_name = 'Имя обязательно';
+      errors.first_name = 'Аты міндетті';
     }
-    
+
     if (!formData.last_name) {
-      errors.last_name = 'Фамилия обязательна';
+      errors.last_name = 'Тегі міндетті';
     }
-    
+
     if (!formData.role) {
-      errors.role = 'Роль обязательна';
+      errors.role = 'Рөлі міндетті';
     }
-    
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  
-  // Обработчик отправки формы
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     try {
       setLoading(true);
-      
-      // Получение токена из localStorage
+
       const token = localStorage.getItem('token');
-      
+
       if (!token) {
-        throw new Error('Требуется авторизация');
+        throw new Error('Авторизация қажет');
       }
-      
-      // Формирование данных для отправки
+
       const userData = { ...formData };
-      
-      // Если пароль пустой и это форма редактирования, удаляем его из данных
+
       if (isEditing && !userData.password) {
         delete userData.password;
       }
-      
-      // URL и метод запроса в зависимости от типа формы
+
       const url = isEditing
         ? `http://localhost:5000/api/admin/users/${id}`
         : 'http://localhost:5000/api/admin/users';
-      
+
       const method = isEditing ? 'PUT' : 'POST';
-      
-      // Отправка запроса к API
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -180,56 +166,53 @@ const UserForm = ({ isEditing = false, onSuccess }) => {
         },
         body: JSON.stringify(userData)
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || `Ошибка запроса: ${response.status}`);
+        throw new Error(errorData.error || `Сұраныс қатесі: ${response.status}`);
       }
-      
-      // Если запрос выполнен успешно
-      alert(isEditing ? 'Пользователь успешно обновлен' : 'Пользователь успешно создан');
-      
-      // Вызываем колбэк успешного завершения
+
+      alert(isEditing ? 'Пайдаланушы сәтті жаңартылды' : 'Пайдаланушы сәтті құрылды');
+
       if (onSuccess) {
         onSuccess();
       }
     } catch (err) {
-      console.error('Failed to save user:', err);
-      setError(err.message || 'Не удалось сохранить пользователя');
+      console.error('Пайдаланушыны сақтау қатесі:', err);
+      setError(err.message || 'Пайдаланушыны сақтау мүмкін болмады');
     } finally {
       setLoading(false);
     }
   };
-  
-  // Обработчик отмены
+
   const handleCancel = () => {
     navigate('/admin/users');
   };
-  
+
   if (loading && isEditing) {
     return (
       <div className="admin-loading">
         <div className="spinner"></div>
-        <p>Загрузка данных...</p>
+        <p>Деректер жүктелуде...</p>
       </div>
     );
   }
-  
+
   return (
     <div className="user-form-container">
       <div className="admin-section-header">
         <h2 className="admin-section-title">
-          {isEditing ? 'Редактирование пользователя' : 'Создание пользователя'}
+          {isEditing ? 'Пайдаланушыны өңдеу' : 'Пайдаланушыны қосу'}
         </h2>
       </div>
-      
+
       <div className="admin-card">
         {error && (
           <div className="form-error">
             {error}
           </div>
         )}
-        
+
         <form className="admin-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="admin-form-group">
@@ -245,10 +228,10 @@ const UserForm = ({ isEditing = false, onSuccess }) => {
               />
               {formErrors.email && <div className="field-error">{formErrors.email}</div>}
             </div>
-            
+
             <div className="admin-form-group">
               <label htmlFor="password">
-                {isEditing ? 'Пароль (оставьте пустым, чтобы не менять)' : 'Пароль*'}
+                {isEditing ? 'Құпиясөз (ауыстырмау үшін бос қалдырыңыз)' : 'Құпиясөз*'}
               </label>
               <input
                 type="password"
@@ -262,10 +245,10 @@ const UserForm = ({ isEditing = false, onSuccess }) => {
               {formErrors.password && <div className="field-error">{formErrors.password}</div>}
             </div>
           </div>
-          
+
           <div className="form-row">
             <div className="admin-form-group">
-              <label htmlFor="last_name">Фамилия*</label>
+              <label htmlFor="last_name">Тегі*</label>
               <input
                 type="text"
                 id="last_name"
@@ -277,7 +260,7 @@ const UserForm = ({ isEditing = false, onSuccess }) => {
               />
               {formErrors.last_name && <div className="field-error">{formErrors.last_name}</div>}
             </div>
-            
+
             <div className="admin-form-group">
               <label htmlFor="first_name">Имя*</label>
               <input

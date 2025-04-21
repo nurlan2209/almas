@@ -24,7 +24,7 @@ const UserManagement = () => {
       const token = localStorage.getItem('token');
       
       if (!token) {
-        throw new Error('Требуется авторизация');
+        throw new Error('Авторизация қажет');
       }
       
       // Формирование параметров запроса
@@ -42,7 +42,7 @@ const UserManagement = () => {
       });
       
       if (!response.ok) {
-        throw new Error(`Ошибка запроса: ${response.status}`);
+        throw new Error(`Сұраныс қатесі: ${response.status}`);
       }
       
       const data = await response.json();
@@ -54,7 +54,7 @@ const UserManagement = () => {
       setError(null);
     } catch (err) {
       console.error('Failed to fetch users:', err);
-      setError(err.message || 'Не удалось загрузить список пользователей');
+      setError(err.message || 'Пайдаланушылар тізімін жүктеу мүмкін болмады');
     } finally {
       setLoading(false);
     }
@@ -96,7 +96,7 @@ const UserManagement = () => {
 
   // Обработчик удаления пользователя
   const handleDeleteUser = async (userId) => {
-    if (!window.confirm('Вы уверены, что хотите удалить этого пользователя?')) {
+    if (!window.confirm('Бұл пайдаланушыны шынымен жойғыңыз келе ме?')) {
       return;
     }
     
@@ -105,7 +105,7 @@ const UserManagement = () => {
       const token = localStorage.getItem('token');
       
       if (!token) {
-        throw new Error('Требуется авторизация');
+        throw new Error('Авторизация қажет');
       }
       
       // Запрос к API для удаления пользователя
@@ -117,16 +117,16 @@ const UserManagement = () => {
       });
       
       if (!response.ok) {
-        throw new Error(`Ошибка запроса: ${response.status}`);
+        throw new Error(`Сұраныс қатесі: ${response.status}`);
       }
       
       // Обновляем список пользователей после удаления
       fetchUsers(currentPage, { role: roleFilter, search: searchTerm });
       
-      alert('Пользователь успешно удален');
+      alert('Пайдаланушы сәтті жойылды');
     } catch (err) {
       console.error('Failed to delete user:', err);
-      alert(`Ошибка при удалении пользователя: ${err.message}`);
+      alert(`Пайдаланушыны жою кезінде қате пайда болды: ${err.message}`);
     }
   };
 
@@ -138,46 +138,46 @@ const UserManagement = () => {
           element={
             <>
               <div className="admin-section-header">
-                <h2 className="admin-section-title">Управление пользователями</h2>
+                <h2 className="admin-section-title">Пайдаланушыларды басқару</h2>
                 <button 
                   className="btn btn-primary"
                   onClick={() => navigate('/admin/users/create')}
                 >
-                  Добавить пользователя
+                  Пайдаланушы қосу
                 </button>
               </div>
               
               <div className="admin-card">
                 <div className="admin-filters">
                   <div className="filter-group">
-                    <label htmlFor="role-filter">Роль:</label>
+                    <label htmlFor="role-filter">Рөл:</label>
                     <select
                       id="role-filter"
                       value={roleFilter}
                       onChange={handleRoleFilterChange}
                     >
-                      <option value="">Все</option>
-                      <option value="donor">Доноры</option>
-                      <option value="recipient">Реципиенты</option>
-                      <option value="admin">Администраторы</option>
+                      <option value="">Барлығы</option>
+                      <option value="donor">Донорлар</option>
+                      <option value="recipient">Реципиенттер</option>
+                      <option value="admin">Әкімшілер</option>
                     </select>
                   </div>
                   
                   <form className="search-form" onSubmit={handleSearch}>
                     <input
                       type="text"
-                      placeholder="Поиск по имени, email..."
+                      placeholder="Аты, email бойынша іздеу..."
                       value={searchTerm}
                       onChange={handleSearchChange}
                     />
-                    <button type="submit" className="btn btn-outline">Поиск</button>
+                    <button type="submit" className="btn btn-outline">Іздеу</button>
                   </form>
                   
                   <button 
                     className="btn btn-secondary"
                     onClick={handleResetFilters}
                   >
-                    Сбросить
+                    Қалпына келтіру
                   </button>
                 </div>
                 
@@ -192,7 +192,7 @@ const UserManagement = () => {
                 
                 <div className="admin-pagination">
                   <div className="pagination-info">
-                    Показано {users.length} из {totalUsers} пользователей
+                    {totalUsers} пайдаланушыдан {users.length} көрсетілді
                   </div>
                   <div className="pagination-buttons">
                     <button

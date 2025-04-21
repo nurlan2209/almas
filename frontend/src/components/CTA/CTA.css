@@ -1,48 +1,80 @@
 .cta-section {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 80px 0;
-    text-align: center;
-    background-image: linear-gradient(to right, var(--primary-color), #c92a2a);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 100px 0; /* Увеличили отступы для более воздушного вида */
+  text-align: center;
+  background-image: linear-gradient(to right, var(--primary-color), #c92a2a);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-content {
+  max-width: 800px; /* Увеличили ширину для лучшей читаемости */
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-title {
+  font-size: 2.8rem; /* Увеличили размер шрифта */
+  font-weight: 700;
+  margin-bottom: 25px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.cta-text {
+  font-size: 1.3rem; /* Увеличили размер текста */
+  line-height: 1.6; /* Увеличили высоту строки для читаемости */
+  margin-bottom: 40px;
+  opacity: 0.9;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.cta-btn {
+  background-color: white;
+  color: var(--primary-color);
+  font-size: 1.2rem; /* Увеличили шрифт кнопки */
+  font-weight: 600;
+  padding: 15px 40px; /* Увеличили размер кнопки */
+  border-radius: 8px; /* Скруглили углы */
+  display: inline-block;
+  animation: fadeIn 1.4s ease-in-out, pulse 2s infinite;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: rgba(255, 255, 255, 0.95);
+  transform: scale(1.05); /* Лёгкое увеличение при наведении */
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Пульсация кнопки */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 60px 0; /* Уменьшили отступы для мобильных */
   }
-  
-  .cta-content {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  
+
   .cta-title {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
+    font-size: 2.2rem;
   }
   
   .cta-text {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    opacity: 0.9;
+    font-size: 1.1rem;
   }
   
   .cta-btn {
-    background-color: white;
-    color: var(--primary-color);
-    font-size: 1.1rem;
-    padding: 15px 30px;
+    font-size: 1rem;
+    padding: 12px 30px;
   }
-  
-  .cta-btn:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-  
-  @media (max-width: 768px) {
-    .cta-title {
-      font-size: 2rem;
-    }
-    
-    .cta-text {
-      font-size: 1rem;
-    }
-    
-    .cta-btn {
-      padding: 12px 24px;
-    }
-  }
+}

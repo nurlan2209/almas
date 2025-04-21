@@ -84,7 +84,7 @@ const DonationSearch = ({ onRespondToRequest }) => {
     return (
       <div className="donation-search loading">
         <div className="spinner"></div>
-        <p>Загрузка данных...</p>
+        <p>Деректер жүктелуде...</p>
       </div>
     );
   }
@@ -93,19 +93,19 @@ const DonationSearch = ({ onRespondToRequest }) => {
     <div className="donation-search">
       <div className="donation-search-header">
         <h2>
-          {isSearchingDonors ? 'Поиск доноров' : 'Люди, нуждающиеся в донорстве'}
+          {isSearchingDonors ? 'Донорларды іздеу' : 'Донорлыққа мұқтаж жандар'}
         </h2>
         
         <div className="donation-search-filters">
           <div className="filter-group">
-            <label htmlFor="blood_type">Группа крови:</label>
+            <label htmlFor="blood_type">Қан тобы:</label>
             <select
               id="blood_type"
               name="blood_type"
               value={filters.blood_type}
               onChange={handleFilterChange}
             >
-              <option value="">Все</option>
+              <option value="">Барлығы</option>
               <option value="I">I (O)</option>
               <option value="II">II (A)</option>
               <option value="III">III (B)</option>
@@ -121,9 +121,9 @@ const DonationSearch = ({ onRespondToRequest }) => {
               value={filters.rh_factor}
               onChange={handleFilterChange}
             >
-              <option value="">Все</option>
-              <option value="positive">Положительный (+)</option>
-              <option value="negative">Отрицательный (-)</option>
+              <option value="">Барлығы</option>
+              <option value="positive">Оң (+)</option>
+              <option value="negative">Теріс (-)</option>
             </select>
           </div>
         </div>
@@ -132,36 +132,36 @@ const DonationSearch = ({ onRespondToRequest }) => {
       {/* Активные запросы */}
       {requests.length > 0 && (
         <div className="active-requests">
-          <h3>Активные запросы на донацию</h3>
+          <h3>Донацияға белсенді сұраныстар</h3>
           <div className="requests-list">
             {requests.map(request => (
               <div className="request-card" key={request.id}>
                 <div className="request-info">
                   <div className="request-header">
                     <span className={`urgency-badge ${request.urgency_level}`}>
-                      {request.urgency_level === 'low' && 'Низкий приоритет'}
-                      {request.urgency_level === 'medium' && 'Средний приоритет'}
-                      {request.urgency_level === 'high' && 'Высокий приоритет'}
-                      {request.urgency_level === 'critical' && 'Критический приоритет'}
+                      {request.urgency_level === 'low' && 'Төмен басымдық'}
+                      {request.urgency_level === 'medium' && 'Орташа басымдық'}
+                      {request.urgency_level === 'high' && 'Жоғары басымдық'}
+                      {request.urgency_level === 'critical' && 'Сын басымдық'}
                     </span>
                     <span className="blood-info">
-                      Группа крови: {request.blood_type} {request.rh_factor === 'positive' ? '(+)' : '(-)'}
+                      Қан тобы: {request.blood_type} {request.rh_factor === 'positive' ? '(+)' : '(-)'}
                     </span>
                   </div>
                   
                   <p className="request-description">
-                    {request.description || 'Требуется донорская кровь'}
+                    {request.description || 'Донорлық қан қажет'}
                   </p>
                   
                   {request.hospital_name && (
                     <p className="request-hospital">
-                      Медицинское учреждение: {request.hospital_name}
+                      Медициналық мекеме: {request.hospital_name}
                     </p>
                   )}
                   
                   {request.hospital_address && (
                     <p className="request-address">
-                      Адрес: {request.hospital_address}
+                      Мекенжай: {request.hospital_address}
                     </p>
                   )}
                 </div>
@@ -172,7 +172,7 @@ const DonationSearch = ({ onRespondToRequest }) => {
                       className="btn btn-primary"
                       onClick={() => onRespondToRequest(request.id)}
                     >
-                      Откликнуться
+                      Жауап беру
                     </button>
                   </div>
                 )}
@@ -185,12 +185,12 @@ const DonationSearch = ({ onRespondToRequest }) => {
       {/* Результаты поиска */}
       <div className="search-results">
         <h3>
-          {isSearchingDonors ? 'Доступные доноры' : 'Люди, нуждающиеся в донорстве'}
+          {isSearchingDonors ? 'Қолжетімді донорлар' : 'Донорлыққа мұқтаж жандар'}
         </h3>
         
         {searchResults.length === 0 ? (
           <div className="no-results">
-            <p>По вашему запросу ничего не найдено</p>
+            <p>Сіздің сұранысыңыз бойынша ештеңе табылмады</p>
           </div>
         ) : (
           <div className="results-list">
@@ -207,12 +207,12 @@ const DonationSearch = ({ onRespondToRequest }) => {
                   
                   <div className="person-details">
                     <span className="blood-info">
-                      Группа крови: {person.blood_type || 'Не указана'} 
+                      Қан тобы: {person.blood_type || 'Көрсетілмеген'} 
                       {person.rh_factor ? (person.rh_factor === 'positive' ? '(+)' : '(-)') : ''}
                     </span>
                     
                     <span className="gender-info">
-                      Пол: {person.gender === 'male' ? 'Мужской' : 'Женский'}
+                      Жынысы: {person.gender === 'male' ? 'Ер' : 'Әйел'}
                     </span>
                   </div>
                 </div>
@@ -222,7 +222,7 @@ const DonationSearch = ({ onRespondToRequest }) => {
                     className="btn btn-outline"
                     onClick={() => handleContactPerson(person)}
                   >
-                    Связаться
+                    Байланысу
                   </button>
                 </div>
               </div>

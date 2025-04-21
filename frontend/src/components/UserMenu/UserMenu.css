@@ -1,124 +1,163 @@
 .user-menu-container {
-    position: relative;
+  position: relative;
+}
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px; /* Увеличили отступы */
+  border-radius: 8px; /* Скруглили углы */
+  background-color: #f8f9fa; /* Добавили лёгкий фон */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.user-menu-trigger:hover {
+  background-color: rgba(229, 57, 53, 0.1); /* Лёгкий красный фон при наведении */
+  transform: scale(1.02); /* Лёгкое увеличение */
+}
+
+.user-avatar {
+  width: 40px; /* Увеличили размер */
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color, #e53935);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem; /* Увеличили шрифт */
+  margin-right: 12px; /* Увеличили отступ */
+  transition: transform 0.3s ease;
+}
+
+.user-menu-trigger:hover .user-avatar {
+  transform: scale(1.05); /* Анимация при наведении */
+}
+
+.user-name {
+  margin-right: 8px; /* Увеличили отступ */
+  font-weight: 500;
+  font-size: 1.1rem; /* Увеличили шрифт */
+  color: var(--dark-color, #666);
+}
+
+.arrow {
+  border: solid #666;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px; /* Увеличили размер стрелки */
+  transition: transform 0.3s ease;
+}
+
+.arrow.down {
+  transform: rotate(45deg);
+}
+
+.arrow.up {
+  transform: rotate(-135deg);
+}
+
+.user-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 300px; /* Увеличили ширину */
+  background-color: white;
+  border-radius: 12px; /* Скруглили углы */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15); /* Увеличили тень */
+  z-index: 100;
+  overflow: hidden;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+.menu-header {
+  padding: 25px; /* Увеличили отступы */
+  border-bottom: 1px solid #eee;
+  background-color: #f8f9fa; /* Лёгкий серый фон */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar-large {
+  width: 56px; /* Увеличили размер */
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--primary-color, #e53935);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px; /* Увеличили шрифт */
+  margin-right: 15px; /* Увеличили отступ */
+  transition: transform 0.3s ease;
+}
+
+.user-info:hover .user-avatar-large {
+  transform: scale(1.05); /* Анимация при наведении */
+}
+
+.user-details {
+  flex: 1;
+}
+
+.user-full-name {
+  font-weight: 500;
+  font-size: 1.2rem; /* Увеличили шрифт */
+  margin-bottom: 6px; /* Увеличили отступ */
+  color: var(--dark-color, #666);
+}
+
+.user-email {
+  font-size: 15px; /* Увеличили шрифт */
+  color: #666;
+}
+
+.menu-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-items li {
+  padding: 15px 25px; /* Увеличили отступы */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.1rem; /* Увеличили шрифт */
+  color: var(--dark-color, #666);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.menu-items li:hover {
+  background-color: var(--primary-color, #e53935);
+  color: white;
+}
+
+.menu-items li:hover .icon {
+  color: white; /* Меняем цвет иконки при наведении */
+}
+
+.menu-items li .icon {
+  margin-right: 15px; /* Увеличили отступ */
+  font-size: 20px; /* Увеличили размер иконки */
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+/* Анимация появления */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  .user-menu-trigger {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .user-menu-trigger:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  .user-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #e53935;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .user-name {
-    margin-right: 5px;
-    font-weight: 500;
-  }
-  
-  .arrow {
-    border: solid #666;
-    border-width: 0 2px 2px 0;
-    display: inline-block;
-    padding: 3px;
-    transition: transform 0.2s;
-  }
-  
-  .arrow.down {
-    transform: rotate(45deg);
-  }
-  
-  .arrow.up {
-    transform: rotate(-135deg);
-  }
-  
-  .user-dropdown-menu {
-    position: absolute;
-    right: 0;
-    top: 100%;
-    width: 280px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    overflow: hidden;
-  }
-  
-  .menu-header {
-    padding: 20px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-avatar-large {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: #e53935;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 20px;
-    margin-right: 12px;
-  }
-  
-  .user-details {
-    flex: 1;
-  }
-  
-  .user-full-name {
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  
-  .user-email {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .menu-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menu-items li {
-    padding: 12px 20px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .menu-items li:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .menu-items li .icon {
-    margin-right: 12px;
-    font-size: 18px;
-    color: #666;
-  }
+}

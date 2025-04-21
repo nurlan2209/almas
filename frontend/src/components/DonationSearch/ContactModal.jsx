@@ -1,4 +1,3 @@
-// src/components/DonationSearch/ContactModal.jsx
 import React from 'react';
 import './ContactModal.css';
 
@@ -9,7 +8,7 @@ const ContactModal = ({ person, onClose }) => {
     <div className="contact-modal-overlay">
       <div className="contact-modal">
         <div className="contact-modal-header">
-          <h3>Контактная информация</h3>
+          <h3>Байланыс ақпараты</h3>
           <button className="close-button" onClick={onClose}>×</button>
         </div>
         
@@ -23,16 +22,16 @@ const ContactModal = ({ person, onClose }) => {
                 {person.last_name} {person.first_name} {person.patronymic}
               </h4>
               <div className="contact-blood-info">
-                <span className="contact-detail-label">Группа крови:</span>
+                <span className="contact-detail-label">Қан тобы:</span>
                 <span className="contact-detail-value">
-                  {person.blood_type || 'Не указана'} 
+                  {person.blood_type || 'Көрсетілмеген'} 
                   {person.rh_factor ? (person.rh_factor === 'positive' ? '(+)' : '(-)') : ''}
                 </span>
               </div>
               <div className="contact-gender-info">
-                <span className="contact-detail-label">Пол:</span>
+                <span className="contact-detail-label">Жынысы:</span>
                 <span className="contact-detail-value">
-                  {person.gender === 'male' ? 'Мужской' : 'Женский'}
+                  {person.gender === 'male' ? 'Ер' : 'Әйел'}
                 </span>
               </div>
             </div>
@@ -40,28 +39,28 @@ const ContactModal = ({ person, onClose }) => {
           
           <div className="contact-data">
             <div className="contact-section">
-              <h4>Как связаться</h4>
+              <h4>Байланысу жолдары</h4>
               <div className="contact-data-row">
                 <div className="contact-label">Email:</div>
-                <div className="contact-value">{person.email || 'Не указан'}</div>
+                <div className="contact-value">{person.email || 'Көрсетілмеген'}</div>
               </div>
               <div className="contact-data-row">
                 <div className="contact-label">Телефон:</div>
-                <div className="contact-value">{person.phone_number || 'Не указан'}</div>
+                <div className="contact-value">{person.phone_number || 'Көрсетілмеген'}</div>
               </div>
               <div className="contact-data-row">
-                <div className="contact-label">Адрес:</div>
-                <div className="contact-value">{person.address || 'Не указан'}</div>
+                <div className="contact-label">Мекенжай:</div>
+                <div className="contact-value">{person.address || 'Көрсетілмеген'}</div>
               </div>
             </div>
           </div>
           
           <div className="contact-actions">
             <p className="contact-note">
-              При связи с {person.gender === 'male' ? 'донором' : 'донором'} рекомендуем представиться и 
-              объяснить цель вашего обращения. Пожалуйста, будьте вежливы и уважительны.
+              {person.gender === 'male' ? 'Донормен' : 'Донормен'} байланысқанда өзіңізді таныстырып, 
+              хабарласу мақсатыңызды түсіндіруді ұсынамыз. Сыпайы және құрметпен сөйлесіңіз.
             </p>
-            <button className="btn btn-primary" onClick={onClose}>Понятно</button>
+            <button className="btn btn-primary" onClick={onClose}>Түсінікті</button>
           </div>
         </div>
       </div>

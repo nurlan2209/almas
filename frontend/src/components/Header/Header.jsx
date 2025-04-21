@@ -1,4 +1,3 @@
-// src/components/Header/Header.jsx
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './Header.css';
@@ -32,7 +31,7 @@ const Header = () => {
       <div className="container header-container">
         <div className="logo">
           <Link to="/">
-            <span className="logo-text">Донор<span className="logo-highlight">Жизни</span></span>
+            <span className="logo-text">Өмір<span className="logo-highlight">Донор</span></span>
           </Link>
         </div>
         
@@ -44,34 +43,29 @@ const Header = () => {
           <ul className="nav-list">
             <li className="nav-item">
               <NavLink to="/" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
-                Главная
+                Басты бет
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/about" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
-                О нас
+                Біз туралы
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/how-to-donate" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
-                Как стать донором
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/donation-centers" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
-                Центры сдачи
+                Донор болу жолы
               </NavLink>
             </li>
             {isAuthenticated && (
               <li className="nav-item">
                 <NavLink to="/search" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
-                  {user?.role === 'donor' ? 'Нуждающиеся' : 'Поиск доноров'}
+                  {user?.role === 'donor' ? 'Мұқтаж жандар' : 'Донор іздеу'}
                 </NavLink>
               </li>
             )}
             <li className="nav-item">
               <NavLink to="/contact" className={({isActive}) => isActive ? "nav-link active" : "nav-link"} onClick={() => setIsMenuOpen(false)}>
-                Контакты
+                Байланыс
               </NavLink>
             </li>
           </ul>
@@ -82,7 +76,7 @@ const Header = () => {
             <UserMenu user={user} onLogout={handleLogout} />
           ) : (
             <button className="auth-button" onClick={openAuthModal}>
-              Войти / Регистрация
+              Кіру / Тіркелу
             </button>
           )}
         </div>

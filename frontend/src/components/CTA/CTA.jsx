@@ -6,11 +6,11 @@ const CTA = () => {
     <section className="cta-section">
       <div className="container">
         <div className="cta-content">
-          <h2 className="cta-title">Готовы спасти жизнь?</h2>
+          <h2 className="cta-title">Өмірді құтқаруға дайынсыз ба?</h2>
           <p className="cta-text">
-            Присоединяйтесь к тысячам доноров по всей стране и помогите тем, кто нуждается в донорской крови прямо сейчас.
+            Еліміздің түкпір-түкпіріндегі мыңдаған донорларға қосылыңыз және қазір қан донорлығына мұқтаж жандарға көмектесіңіз.
           </p>
-          <Link to="/how-to-donate" className="btn btn-primary cta-btn">Стать донором сегодня</Link>
+          <Link to="/how-to-donate" className="btn btn-primary cta-btn">Бүгін донор болу</Link>
         </div>
       </div>
     </section>

@@ -5,7 +5,7 @@ const UsersList = ({ users, loading, error, onDelete, onView, onEdit }) => {
     return (
       <div className="admin-loading">
         <div className="spinner"></div>
-        <p>Загрузка пользователей...</p>
+        <p>Пайдаланушыларды жүктеу...</p>
       </div>
     );
   }
@@ -18,7 +18,7 @@ const UsersList = ({ users, loading, error, onDelete, onView, onEdit }) => {
           onClick={() => window.location.reload()} 
           className="btn btn-primary"
         >
-          Повторить попытку
+          Қайталап көру
         </button>
       </div>
     );
@@ -27,12 +27,11 @@ const UsersList = ({ users, loading, error, onDelete, onView, onEdit }) => {
   if (users.length === 0) {
     return (
       <div className="no-data">
-        <p>Пользователи не найдены</p>
+        <p>Пайдаланушылар табылмады</p>
       </div>
     );
   }
 
-  // Функция для отображения роли пользователя
   const getUserRole = (role) => {
     switch (role) {
       case 'donor':
@@ -40,7 +39,7 @@ const UsersList = ({ users, loading, error, onDelete, onView, onEdit }) => {
       case 'recipient':
         return 'Реципиент';
       case 'admin':
-        return 'Администратор';
+        return 'Әкімші';
       default:
         return role;
     }
@@ -52,11 +51,11 @@ const UsersList = ({ users, loading, error, onDelete, onView, onEdit }) => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Имя</th>
+            <th>Аты</th>
             <th>Email</th>
             <th>Телефон</th>
-            <th>Роль</th>
-            <th>Действия</th>
+            <th>Рөл</th>
+            <th>Әрекеттер</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +66,7 @@ const UsersList = ({ users, loading, error, onDelete, onView, onEdit }) => {
                 {user.last_name} {user.first_name} {user.patronymic || ''}
               </td>
               <td>{user.email}</td>
-              <td>{user.phone_number || 'Не указан'}</td>
+              <td>{user.phone_number || 'Белгіленбеген'}</td>
               <td>
                 <span className={`user-role ${user.role}`}>
                   {getUserRole(user.role)}
@@ -77,21 +76,21 @@ const UsersList = ({ users, loading, error, onDelete, onView, onEdit }) => {
                 <button 
                   className="action-button view-button"
                   onClick={() => onView(user.id)}
-                  title="Просмотр"
+                  title="Қарау"
                 >
                   👁️
                 </button>
                 <button 
                   className="action-button edit-button"
                   onClick={() => onEdit(user.id)}
-                  title="Редактировать"
+                  title="Өңдеу"
                 >
                   ✏️
                 </button>
                 <button 
                   className="action-button delete-button"
                   onClick={() => onDelete(user.id)}
-                  title="Удалить"
+                  title="Жою"
                 >
                   🗑️
                 </button>

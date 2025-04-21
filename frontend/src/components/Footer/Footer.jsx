@@ -7,34 +7,33 @@ const Footer = () => {
       <div className="container footer-container">
         <div className="footer-logo">
           <Link to="/">
-            <span className="logo-text">Донор<span className="logo-highlight">Жизни</span></span>
+            <span className="logo-text">Өмір<span className="logo-highlight">Донор</span></span>
           </Link>
-          <p className="footer-slogan">Каждая капля крови спасает жизнь</p>
+          <p className="footer-slogan">Қанның әр тамшысы өмірді құтқарады</p>
         </div>
         
         <div className="footer-links">
           <div className="footer-links-column">
-            <h4>Меню</h4>
+            <h4>Мәзір</h4>
             <ul>
-              <li><Link to="/">Главная</Link></li>
-              <li><Link to="/about">О нас</Link></li>
-              <li><Link to="/how-to-donate">Как стать донором</Link></li>
-              <li><Link to="/donation-centers">Центры сдачи</Link></li>
-              <li><Link to="/contact">Контакты</Link></li>
+              <li><Link to="/">Басты бет</Link></li>
+              <li><Link to="/about">Біз туралы</Link></li>
+              <li><Link to="/how-to-donate">Донор болу жолы</Link></li>
+              <li><Link to="/contact">Байланыс</Link></li>
             </ul>
           </div>
           
           <div className="footer-links-column">
-            <h4>Контакты</h4>
+            <h4>Байланыс</h4>
             <ul>
               <li>Телефон: +7 (123) 456-78-90</li>
-              <li>Email: info@donorlife.ru</li>
-              <li>Адрес: г. Москва, ул. Донорская, 1</li>
+              <li>Email: info@donorlife.kz</li>
+              <li>Мекенжай: Мәскеу қ., Донор көш., 1</li>
             </ul>
           </div>
           
           <div className="footer-links-column">
-            <h4>Соцсети</h4>
+            <h4>Әлеуметтік желілер</h4>
             <div className="social-links">
               <a href="#" className="social-link">ВКонтакте</a>
               <a href="#" className="social-link">Telegram</a>
@@ -46,7 +45,7 @@ const Footer = () => {
       
       <div className="footer-bottom">
         <div className="container">
-          <p>&copy; 2025 ДонорЖизни. Все права защищены.</p>
+          <p>© 2025 ӨмірДонор. Барлық құқықтар қорғалған.</p>
         </div>
       </div>
     </footer>

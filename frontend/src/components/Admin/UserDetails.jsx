@@ -13,19 +13,16 @@ const UserDetails = ({ onBack }) => {
     fetchUserData(id);
   }, [id]);
   
-  // Функция для загрузки данных пользователя
   const fetchUserData = async (userId) => {
     try {
       setLoading(true);
       
-      // Получение токена из localStorage
       const token = localStorage.getItem('token');
       
       if (!token) {
-        throw new Error('Требуется авторизация');
+        throw new Error('Авторизация қажет');
       }
       
-      // Запрос к API для получения данных пользователя
       const response = await fetch(`http://localhost:5000/api/admin/users/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -33,7 +30,7 @@ const UserDetails = ({ onBack }) => {
       });
       
       if (!response.ok) {
-        throw new Error(`Ошибка запроса: ${response.status}`);
+        throw new Error(`Сұраныс қатесі: ${response.status}`);
       }
       
       const data = await response.json();
@@ -41,13 +38,12 @@ const UserDetails = ({ onBack }) => {
       setError(null);
     } catch (err) {
       console.error('Failed to fetch user data:', err);
-      setError(err.message || 'Не удалось загрузить данные пользователя');
+      setError(err.message || 'Пайдаланушы деректерін жүктеу мүмкін болмады');
     } finally {
       setLoading(false);
     }
   };
   
-  // Функция для отображения роли пользователя
   const getUserRole = (role) => {
     switch (role) {
       case 'donor':
@@ -55,48 +51,45 @@ const UserDetails = ({ onBack }) => {
       case 'recipient':
         return 'Реципиент';
       case 'admin':
-        return 'Администратор';
+        return 'Әкімші';
       default:
         return role;
     }
   };
   
-  // Функция для отображения пола
   const getGender = (gender) => {
     switch (gender) {
       case 'male':
-        return 'Мужской';
+        return 'Ер';
       case 'female':
-        return 'Женский';
+        return 'Әйел';
       default:
-        return 'Не указан';
+        return 'Белгіленбеген';
     }
   };
   
-  // Функция для отображения резус-фактора
   const getRhFactor = (rh) => {
     switch (rh) {
       case 'positive':
-        return 'Положительный (+)';
+        return 'Оң (+)';
       case 'negative':
-        return 'Отрицательный (-)';
+        return 'Теріс (-)';
       default:
-        return 'Не указан';
+        return 'Белгіленбеген';
     }
   };
   
-  // Функция для форматирования даты
   const formatDate = (dateString) => {
-    if (!dateString) return 'Не указана';
+    if (!dateString) return 'Белгіленбеген';
     const date = new Date(dateString);
-    return date.toLocaleDateString('ru-RU');
+    return date.toLocaleDateString('kk-KZ');
   };
   
   if (loading) {
     return (
       <div className="admin-loading">
         <div className="spinner"></div>
-        <p>Загрузка данных пользователя...</p>
+        <p>Пайдаланушы деректерін жүктеу...</p>
       </div>
     );
   }
@@ -104,13 +97,13 @@ const UserDetails = ({ onBack }) => {
   if (error) {
     return (
       <div className="admin-error">
-        <h2>Ошибка загрузки данных</h2>
+        <h2>Деректерді жүктеу қатесі</h2>
         <p>{error}</p>
         <button 
           onClick={() => window.location.reload()} 
           className="btn btn-primary"
         >
-          Повторить попытку
+          Қайталап көру
         </button>
       </div>
     );
@@ -119,12 +112,12 @@ const UserDetails = ({ onBack }) => {
   if (!user) {
     return (
       <div className="admin-error">
-        <h2>Пользователь не найден</h2>
+        <h2>Пайдаланушы табылмады</h2>
         <button 
           onClick={onBack} 
           className="btn btn-primary"
         >
-          Вернуться к списку
+          Тізімге оралу
         </button>
       </div>
     );
@@ -133,19 +126,19 @@ const UserDetails = ({ onBack }) => {
   return (
     <div className="user-details">
       <div className="admin-section-header">
-        <h2 className="admin-section-title">Информация о пользователе</h2>
+        <h2 className="admin-section-title">Пайдаланушы туралы ақпарат</h2>
         <div className="admin-header-actions">
           <button 
             className="btn btn-outline"
             onClick={() => navigate(`/admin/users/${id}/edit`)}
           >
-            Редактировать
+            Өңдеу
           </button>
           <button 
             className="btn btn-secondary"
             onClick={onBack}
           >
-            Назад
+            Артқа
           </button>
         </div>
       </div>
@@ -166,73 +159,73 @@ const UserDetails = ({ onBack }) => {
         
         <div className="user-details-sections">
           <div className="user-details-section">
-            <h4 className="section-title">Основная информация</h4>
+            <h4 className="section-title">Негізгі ақпарат</h4>
             <div className="details-grid">
               <div className="details-item">
                 <div className="details-label">Email</div>
-                <div className="details-value">{user.email || 'Не указан'}</div>
+                <div className="details-value">{user.email || 'Белгіленбеген'}</div>
               </div>
               <div className="details-item">
                 <div className="details-label">Телефон</div>
-                <div className="details-value">{user.phone_number || 'Не указан'}</div>
+                <div className="details-value">{user.phone_number || 'Белгіленбеген'}</div>
               </div>
               <div className="details-item">
-                <div className="details-label">Дата рождения</div>
+                <div className="details-label">Туған күні</div>
                 <div className="details-value">{formatDate(user.birth_date)}</div>
               </div>
               <div className="details-item">
-                <div className="details-label">Пол</div>
+                <div className="details-label">Жыныс</div>
                 <div className="details-value">{getGender(user.gender)}</div>
               </div>
               <div className="details-item">
-                <div className="details-label">ИИН</div>
-                <div className="details-value">{user.iin || 'Не указан'}</div>
+                <div className="details-label">ЖСН</div>
+                <div className="details-value">{user.iin || 'Белгіленбеген'}</div>
               </div>
               <div className="details-item">
-                <div className="details-label">Адрес</div>
-                <div className="details-value">{user.address || 'Не указан'}</div>
+                <div className="details-label">Мекенжай</div>
+                <div className="details-value">{user.address || 'Белгіленбеген'}</div>
               </div>
               <div className="details-item">
-                <div className="details-label">Дата регистрации</div>
+                <div className="details-label">Тіркелген күні</div>
                 <div className="details-value">{formatDate(user.created_at)}</div>
               </div>
             </div>
           </div>
           
           <div className="user-details-section">
-            <h4 className="section-title">Медицинская информация</h4>
+            <h4 className="section-title">Медициналық ақпарат</h4>
             <div className="details-grid">
               <div className="details-item">
-                <div className="details-label">Группа крови</div>
-                <div className="details-value">{user.blood_type || 'Не указана'}</div>
+                <div className="details-label">Қан тобы</div>
+                <div className="details-value">{user.blood_type || 'Белгіленбеген'}</div>
               </div>
               <div className="details-item">
                 <div className="details-label">Резус-фактор</div>
                 <div className="details-value">{getRhFactor(user.rh_factor)}</div>
               </div>
               <div className="details-item">
-                <div className="details-label">Рост</div>
+                <div className="details-label">Бойы</div>
                 <div className="details-value">
-                  {user.height ? `${user.height} см` : 'Не указан'}
+                  {user.height ? `${user.height} см` : 'Белгіленбеген'}
                 </div>
               </div>
               <div className="details-item">
-                <div className="details-label">Вес</div>
+                <div className="details-label">Салмағы</div>
                 <div className="details-value">
-                  {user.weight ? `${user.weight} кг` : 'Не указан'}
+                  {user.weight ? `${user.weight} кг` : 'Белгіленбеген'}
                 </div>
               </div>
               <div className="details-item">
-                <div className="details-label">Хронические заболевания</div>
+                <div className="details-label">Созылмалы аурулар</div>
                 <div className="details-value">
-                  {user.has_chronic_diseases ? 'Имеются' : 'Отсутствуют'}
+                  {user.has_chronic_diseases ? 'Бар' : 'Жоқ'}
                 </div>
               </div>
               {user.has_chronic_diseases && (
                 <div className="details-item full-width">
-                  <div className="details-label">Детали заболеваний</div>
+                  <div className="details-label">Аурулар туралы мәлімет</div>
                   <div className="details-value">
-                    {user.chronic_diseases_details || 'Нет информации'}
+                    {user.chronic_diseases_details || 'Ақпарат жоқ'}
                   </div>
                 </div>
               )}
@@ -241,18 +234,18 @@ const UserDetails = ({ onBack }) => {
           
           {user.role === 'donor' && (
             <div className="user-details-section">
-              <h4 className="section-title">Донации</h4>
+              <h4 className="section-title">Донорлық</h4>
               <div className="empty-section">
-                <p>Информация о донациях будет доступна в будущих версиях.</p>
+                <p>Донорлық туралы ақпарат келесі нұсқаларда қолжетімді болады.</p>
               </div>
             </div>
           )}
           
           {user.role === 'recipient' && (
             <div className="user-details-section">
-              <h4 className="section-title">Запросы на донацию</h4>
+              <h4 className="section-title">Донорлыққа сұраныстар</h4>
               <div className="empty-section">
-                <p>Информация о запросах будет доступна в будущих версиях.</p>
+                <p>Сұраныстар туралы ақпарат келесі нұсқаларда қолжетімді болады.</p>
               </div>
             </div>
           )}

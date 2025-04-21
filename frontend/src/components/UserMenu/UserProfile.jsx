@@ -1,4 +1,3 @@
-// src/components/UserMenu/UserProfile.jsx
 import React, { useState } from 'react';
 import './UserProfile.css';
 
@@ -17,10 +16,8 @@ const UserProfile = ({ user, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Здесь будет логика сохранения изменений
     console.log('Updated user data:', formData);
     setIsEditing(false);
-    // Обновление данных пользователя в родительском компоненте
   };
 
   const cancelEdit = () => {
@@ -30,19 +27,18 @@ const UserProfile = ({ user, onClose }) => {
 
   return (
     <div className="profile-modal-overlay" onClick={(e) => {
-      // Закрываем модальное окно при клике на оверлей
       if (e.target.className === 'profile-modal-overlay') {
         onClose();
       }
     }}>
       <div className="profile-modal">
         <div className="profile-header">
-          <h2>{user?.role === 'donor' ? 'Профиль донора' : 'Профиль реципиента'}</h2>
+          <h2>{user?.role === 'donor' ? 'Донор профилі' : 'Реципиент профилі'}</h2>
           <div className="header-buttons">
             <button 
               className="close-button" 
               onClick={onClose} 
-              aria-label="Закрыть"
+              aria-label="Жабу"
             >
               ×
             </button>
@@ -54,13 +50,13 @@ const UserProfile = ({ user, onClose }) => {
             className={`profile-tab ${activeTab === 'personal' ? 'active' : ''}`} 
             onClick={() => setActiveTab('personal')}
           >
-            Личные данные
+            Жеке деректер
           </button>
           <button 
             className={`profile-tab ${activeTab === 'medical' ? 'active' : ''}`} 
             onClick={() => setActiveTab('medical')}
           >
-            Медицинские данные
+            Медициналық деректер
           </button>
         </div>
 
@@ -70,56 +66,56 @@ const UserProfile = ({ user, onClose }) => {
               {!isEditing ? (
                 <div className="profile-data">
                   <div className="profile-section">
-                    <h3>Основная информация</h3>
+                    <h3>Негізгі ақпарат</h3>
                     <div className="data-row">
-                      <div className="data-label">ФИО:</div>
+                      <div className="data-label">ТАӘ:</div>
                       <div className="data-value">
                         {`${formData.last_name || ''} ${formData.first_name || ''} ${formData.patronymic || ''}`}
                       </div>
                     </div>
                     <div className="data-row">
-                      <div className="data-label">ИИН:</div>
-                      <div className="data-value">{formData.iin || 'Не указан'}</div>
+                      <div className="data-label">ЖСН:</div>
+                      <div className="data-value">{formData.iin || 'Көрсетілмеген'}</div>
                     </div>
                     <div className="data-row">
-                      <div className="data-label">Дата рождения:</div>
-                      <div className="data-value">{formData.birth_date || 'Не указана'}</div>
+                      <div className="data-label">Туған күні:</div>
+                      <div className="data-value">{formData.birth_date || 'Көрсетілмеген'}</div>
                     </div>
                     <div className="data-row">
-                      <div className="data-label">Пол:</div>
+                      <div className="data-label">Жынысы:</div>
                       <div className="data-value">
-                        {formData.gender === 'male' ? 'Мужской' : 
-                         formData.gender === 'female' ? 'Женский' : 'Не указан'}
+                        {formData.gender === 'male' ? 'Ер' : 
+                         formData.gender === 'female' ? 'Әйел' : 'Көрсетілмеген'}
                       </div>
                     </div>
                   </div>
 
                   <div className="profile-section">
-                    <h3>Контактная информация</h3>
+                    <h3>Байланыс ақпараты</h3>
                     <div className="data-row">
                       <div className="data-label">Email:</div>
-                      <div className="data-value">{formData.email || 'Не указан'}</div>
+                      <div className="data-value">{formData.email || 'Көрсетілмеген'}</div>
                     </div>
                     <div className="data-row">
                       <div className="data-label">Телефон:</div>
-                      <div className="data-value">{formData.phone_number || 'Не указан'}</div>
+                      <div className="data-value">{formData.phone_number || 'Көрсетілмеген'}</div>
                     </div>
                     <div className="data-row">
-                      <div className="data-label">Адрес:</div>
-                      <div className="data-value">{formData.address || 'Не указан'}</div>
+                      <div className="data-label">Мекенжай:</div>
+                      <div className="data-value">{formData.address || 'Көрсетілмеген'}</div>
                     </div>
                   </div>
 
                   <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
-                    Редактировать
+                    Өңдеу
                   </button>
                 </div>
               ) : (
                 <form className="profile-form" onSubmit={handleSubmit}>
                   <div className="profile-section">
-                    <h3>Основная информация</h3>
+                    <h3>Негізгі ақпарат</h3>
                     <div className="form-group">
-                      <label htmlFor="last_name">Фамилия</label>
+                      <label htmlFor="last_name">Тегі</label>
                       <input
                         type="text"
                         id="last_name"
@@ -130,7 +126,7 @@ const UserProfile = ({ user, onClose }) => {
                     </div>
                     
                     <div className="form-group">
-                      <label htmlFor="first_name">Имя</label>
+                      <label htmlFor="first_name">Аты</label>
                       <input
                         type="text"
                         id="first_name"
@@ -141,7 +137,7 @@ const UserProfile = ({ user, onClose }) => {
                     </div>
                     
                     <div className="form-group">
-                      <label htmlFor="patronymic">Отчество</label>
+                      <label htmlFor="patronymic">Әкесінің аты</label>
                       <input
                         type="text"
                         id="patronymic"
@@ -153,7 +149,7 @@ const UserProfile = ({ user, onClose }) => {
                   </div>
 
                   <div className="profile-section">
-                    <h3>Контактная информация</h3>
+                    <h3>Байланыс ақпараты</h3>
                     <div className="form-group">
                       <label htmlFor="phone_number">Телефон</label>
                       <input
@@ -166,7 +162,7 @@ const UserProfile = ({ user, onClose }) => {
                     </div>
                     
                     <div className="form-group">
-                      <label htmlFor="address">Адрес</label>
+                      <label htmlFor="address">Мекенжай</label>
                       <textarea
                         id="address"
                         name="address"
@@ -178,10 +174,10 @@ const UserProfile = ({ user, onClose }) => {
 
                   <div className="form-buttons">
                     <button type="button" className="btn btn-secondary" onClick={cancelEdit}>
-                      Отмена
+                      Болдырмау
                     </button>
                     <button type="submit" className="btn btn-success">
-                      Сохранить
+                      Сақтау
                     </button>
                   </div>
                 </form>
@@ -192,45 +188,45 @@ const UserProfile = ({ user, onClose }) => {
           {activeTab === 'medical' && (
             <div className="profile-data">
               <div className="profile-section">
-                <h3>Медицинские данные</h3>
+                <h3>Медициналық деректер</h3>
                 <div className="data-row">
-                  <div className="data-label">Группа крови:</div>
+                  <div className="data-label">Қан тобы:</div>
                   <div className="data-value">
                     {formData.blood_type ? 
                       `${formData.blood_type} ${formData.rh_factor === 'positive' ? '(+)' : '(-)'}` : 
-                      'Не указана'}
+                      'Көрсетілмеген'}
                   </div>
                 </div>
                 <div className="data-row">
-                  <div className="data-label">Рост:</div>
+                  <div className="data-label">Бойы:</div>
                   <div className="data-value">
-                    {formData.height ? `${formData.height} см` : 'Не указан'}
+                    {formData.height ? `${formData.height} см` : 'Көрсетілмеген'}
                   </div>
                 </div>
                 <div className="data-row">
-                  <div className="data-label">Вес:</div>
+                  <div className="data-label">Салмағы:</div>
                   <div className="data-value">
-                    {formData.weight ? `${formData.weight} кг` : 'Не указан'}
+                    {formData.weight ? `${formData.weight} кг` : 'Көрсетілмеген'}
                   </div>
                 </div>
                 <div className="data-row">
-                  <div className="data-label">Хронические заболевания:</div>
+                  <div className="data-label">Созылмалы аурулар:</div>
                   <div className="data-value">
-                    {formData.has_chronic_diseases ? 'Имеются' : 'Отсутствуют'}
+                    {formData.has_chronic_diseases ? 'Бар' : 'Жоқ'}
                   </div>
                 </div>
                 {formData.has_chronic_diseases && (
                   <div className="data-row">
-                    <div className="data-label">Описание хронических заболеваний:</div>
+                    <div className="data-label">Созылмалы аурулар сипаттамасы:</div>
                     <div className="data-value">
-                      {formData.chronic_diseases_details || 'Не указано'}
+                      {formData.chronic_diseases_details || 'Көрсетілмеген'}
                     </div>
                   </div>
                 )}
               </div>
 
               <button className="btn btn-primary" onClick={() => setIsEditing(true)}>
-                Редактировать
+                Өңдеу
               </button>
             </div>
           )}
@@ -238,16 +234,16 @@ const UserProfile = ({ user, onClose }) => {
           {activeTab === 'donations' && (
             <div className="profile-data">
               <div className="profile-section">
-                <h3>{user?.role === 'donor' ? 'История донаций' : 'История запросов на донацию'}</h3>
+                <h3>{user?.role === 'donor' ? 'Донациялар тарихы' : 'Донацияға сұраныстар тарихы'}</h3>
                 {user?.role === 'donor' ? (
                   formData.donations && formData.donations.length > 0 ? (
                     <table className="donations-table">
                       <thead>
                         <tr>
-                          <th>Дата</th>
-                          <th>Тип донации</th>
-                          <th>Центр донорства</th>
-                          <th>Статус</th>
+                          <th>Күні</th>
+                          <th>Донация түрі</th>
+                          <th>Донорлық орталық</th>
+                          <th>Күйі</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -262,17 +258,17 @@ const UserProfile = ({ user, onClose }) => {
                       </tbody>
                     </table>
                   ) : (
-                    <p className="no-data">У вас пока нет зарегистрированных донаций.</p>
+                    <p className="no-data">Сізде әлі тіркелген донациялар жоқ.</p>
                   )
                 ) : (
                   formData.requests && formData.requests.length > 0 ? (
                     <table className="donations-table">
                       <thead>
                         <tr>
-                          <th>Дата</th>
-                          <th>Группа крови</th>
-                          <th>Срочность</th>
-                          <th>Статус</th>
+                          <th>Күні</th>
+                          <th>Қан тобы</th>
+                          <th>Шұғылдығы</th>
+                          <th>Күйі</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -287,11 +283,10 @@ const UserProfile = ({ user, onClose }) => {
                       </tbody>
                     </table>
                   ) : (
-                    <p className="no-data">У вас пока нет зарегистрированных запросов.</p>
+                    <p className="no-data">Сізде әлі тіркелген сұраныстар жоқ.</p>
                   )
                 )}
               </div>
-
             </div>
           )}
         </div>

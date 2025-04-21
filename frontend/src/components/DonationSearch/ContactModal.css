@@ -1,5 +1,3 @@
-/* src/components/DonationSearch/ContactModal.css */
-
 .contact-modal-overlay {
     position: fixed;
     top: 0;
@@ -15,30 +13,32 @@
   
   .contact-modal {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* Скруглили углы */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15); /* Увеличили тень */
     width: 100%;
-    max-width: 500px;
+    max-width: 550px; /* Увеличили ширину */
     max-height: 90vh;
     overflow-y: auto;
+    animation: fadeIn 0.5s ease-in-out;
   }
   
   .contact-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 25px; /* Увеличили отступы */
     border-bottom: 1px solid #eee;
   }
   
   .contact-modal-header h3 {
     margin: 0;
     color: var(--dark-color);
+    font-size: 1.5rem; /* Увеличили шрифт */
   }
   
   .close-button {
-    width: 32px;
-    height: 32px;
+    width: 36px; /* Увеличили размер */
+    height: 36px;
     background: none;
     border: none;
     border-radius: 50%;
@@ -46,41 +46,47 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 26px; /* Увеличили шрифт */
     font-weight: bold;
     color: #666;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
   }
   
   .close-button:hover {
     background-color: #f0f0f0;
     color: var(--primary-color);
+    transform: scale(1.1); /* Анимация при наведении */
   }
   
   .contact-modal-content {
-    padding: 20px;
+    padding: 25px; /* Увеличили отступы */
   }
   
   .contact-person-info {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
     border-bottom: 1px solid #eee;
   }
   
   .contact-person-avatar {
-    width: 60px;
-    height: 60px;
+    width: 70px; /* Увеличили размер */
+    height: 70px;
     border-radius: 50%;
     background-color: var(--primary-color);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 28px; /* Увеличили шрифт */
     font-weight: bold;
-    margin-right: 15px;
+    margin-right: 20px; /* Увеличили отступ */
+    transition: transform 0.3s ease;
+  }
+  
+  .contact-person-info:hover .contact-person-avatar {
+    transform: scale(1.05); /* Анимация при наведении */
   }
   
   .contact-person-details {
@@ -88,36 +94,37 @@
   }
   
   .contact-person-name {
-    margin-bottom: 8px;
-    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-size: 1.3rem; /* Увеличили шрифт */
     color: var(--dark-color);
   }
   
   .contact-blood-info,
   .contact-gender-info {
-    margin-bottom: 5px;
-    font-size: 0.95rem;
+    margin-bottom: 8px; /* Увеличили отступ */
+    font-size: 1rem; /* Увеличили шрифт */
     color: #666;
   }
   
   .contact-detail-label {
     font-weight: 500;
-    margin-right: 5px;
+    margin-right: 8px; /* Увеличили отступ */
   }
   
   .contact-data {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
   
   .contact-section h4 {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: var(--dark-color);
+    font-size: 1.2rem; /* Увеличили шрифт */
   }
   
   .contact-data-row {
     display: flex;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 15px; /* Увеличили отступ */
+    padding-bottom: 15px;
     border-bottom: 1px solid #f5f5f5;
   }
   
@@ -125,29 +132,43 @@
     width: 35%;
     font-weight: 500;
     color: #666;
+    font-size: 1rem;
   }
   
   .contact-value {
     width: 65%;
     color: var(--dark-color);
+    font-size: 1rem;
   }
   
   .contact-actions {
-    margin-top: 20px;
+    margin-top: 25px;
     text-align: center;
   }
   
   .contact-note {
-    margin-bottom: 15px;
-    font-size: 0.9rem;
+    margin-bottom: 20px;
+    font-size: 0.95rem; /* Увеличили шрифт */
     color: #666;
     background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 15px; /* Увеличили отступы */
+    border-radius: 6px;
     text-align: left;
+    line-height: 1.6; /* Улучшили читаемость */
   }
   
   .contact-actions .btn {
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 12px 25px; /* Увеличили размер кнопки */
+    font-size: 1.1rem; /* Увеличили шрифт */
+    transition: transform 0.3s ease;
+  }
+  
+  .contact-actions .btn:hover {
+    transform: scale(1.05); /* Анимация при наведении */
+  }
+  
+  /* Анимация появления */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }

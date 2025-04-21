@@ -9,7 +9,6 @@ import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Contact from './pages/Contact/Contact';
 import HowToDonate from './pages/HowToDonate/HowToDonate';
-import DonationCenters from './pages/DonationCenters/DonationCenters';
 import Search from './pages/Search/Search';
 import { AuthProvider } from './services/authService';
 
@@ -17,7 +16,6 @@ import { AuthProvider } from './services/authService';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 // Импорт компонентов административной панели
-import AdminLogin from './components/Admin/AdminLogin';
 import AdminPanel from './components/Admin/AdminPanel';
 
 function App() {
@@ -38,7 +36,6 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/how-to-donate" element={<HowToDonate />} />
-              <Route path="/donation-centers" element={<DonationCenters />} />
               
               {/* Защищенный маршрут для поиска доноров/реципиентов */}
               <Route 
@@ -51,7 +48,7 @@ function App() {
               />
               
               {/* Маршруты административной панели */}
-              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin" />
               <Route 
                 path="/admin/*" 
                 element={
